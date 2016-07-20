@@ -1,0 +1,20 @@
+{
+  "name": "screenshot-builder",
+  "homepage": "https://github.com/eflyjason/ScreenshotBuilder",
+  "authors": [
+    "Jason Ho <eflyjason@gmail.com>"
+  ],
+  "description": "",
+  "main": "server.py",
+  "license": "GNU GPLv3",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery-typewatch": "^2.2.2"
+  }
+}
