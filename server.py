@@ -21,14 +21,14 @@ def homePage():
 def upldfile():
 	if request.method == 'POST':
 		print(request.form['inputText'])
-		files = request.files['inputImage']
-		print(files)
-		if files and allowed_file(files.filename):
+		inputImage = request.files['inputImage']
+		print(inputImage)
+		if inputImage and allowed_file(inputImage.filename):
 			millis = int(round(time.time() * 1000))
-			filename = "prefix_projectName_"+str(millis)
+			filename = "prefix_projectName_"+str(millis)+os.path.splitext(inputImage.filename)[1]
 			print('FileName: ' + filename)
-			updir = os.path.join(basedir, 'upload/')
-			files.save(os.path.join(updir, filename))
+			updir = os.path.join(basedir, 'static/upload/')
+			inputImage.save(os.path.join(updir, filename))
 			file_size = os.path.getsize(os.path.join(updir, filename))
 			return jsonify(name=filename, size=file_size)
 
