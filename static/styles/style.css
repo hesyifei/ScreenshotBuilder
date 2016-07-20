@@ -1,0 +1,40 @@
+body {
+	padding-top: 40px;
+	padding-bottom: 40px;
+	background-color: #eee;
+	font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	-webkit-font-smoothing: antialiased !important;
+	-moz-osx-font-smoothing: grayscale !important;
+}
+input, button, select, textarea {
+	font-family: inherit !important;
+}
+h1, h2, h3, h4, h5, h6 {
+	font-family: inherit !important;
+}
+
+
+
+.image-preview-input {
+	position: relative;
+	overflow: hidden;
+	margin: 0px;
+	color: #333;
+	background-color: #fff;
+	border-color: #ccc;
+}
+.image-preview-input input[type=file] {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: 0;
+	padding: 0;
+	font-size: 20px;
+	cursor: pointer;
+	opacity: 0;
+	filter: alpha(opacity=0);
+}
+.image-preview-input-title {
+	margin-left:2px;
+}
