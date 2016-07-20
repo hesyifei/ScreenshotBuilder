@@ -10,7 +10,7 @@ screenPaddingLeft, screenPaddingTop = (195, 329)
 screenshot = "screenshot.png"
 textInfo = {
 	"text": "Hello\nWorld!",
-    "textColor": "white",
+	"textColor": "white",
 	"fontSize": 100,
 	"fontFile": "Georgia Italic.ttf",
 	"paddingBorderRatio": 0.04,
@@ -24,18 +24,18 @@ textInfo = {
 bg = Image.new("RGB", (width, height), backgroundColor)
 
 
-lines = textInfo["text"].split("\n")
+lines = textInfo['text'].split("\n")
 
 draw = ImageDraw.Draw(bg)
-font = ImageFont.truetype(textInfo["fontFile"], textInfo["fontSize"])
-totalTextHeight = height*textInfo["paddingBorderRatio"]
-paddingEachLine = textInfo["paddingEachLine"]
+font = ImageFont.truetype(textInfo['fontFile'], textInfo['fontSize'])
+totalTextHeight = height*textInfo['paddingBorderRatio']
+paddingEachLine = textInfo['paddingEachLine']
 for line in lines:
 	textWidth, textHeight = draw.textsize(line, font=font)
-	draw.text(((width - textWidth) / 2, totalTextHeight), line, fill=textInfo["textColor"], font=font)
+	draw.text(((width - textWidth) / 2, totalTextHeight), line, fill=textInfo['textColor'], font=font)
 	totalTextHeight += textHeight + paddingEachLine
 # remove last extra padding & padding to border in order to get exact text height
-totalTextHeight = totalTextHeight - height*textInfo["paddingBorderRatio"] - paddingEachLine
+totalTextHeight = totalTextHeight - height*textInfo['paddingBorderRatio'] - paddingEachLine
 
 
 
@@ -45,12 +45,12 @@ deviceBg = Image.open(deviceImagePathPrefix+"_back.png")
 oriDeviceSize = deviceBg.size
 deviceBg.thumbnail((width, height), Image.ANTIALIAS)
 
-print(height*textInfo["paddingBorderRatio"])
+print(height*textInfo['paddingBorderRatio'])
 print(totalTextHeight)
-print(height*textInfo["paddingDeviceRatio"])
+print(height*textInfo['paddingDeviceRatio'])
 
 devicePaddingLeft = int((width - deviceBg.size[0])/2)
-devicePaddingTop = int(round(height*textInfo["paddingBorderRatio"] + totalTextHeight + height*textInfo["paddingDeviceRatio"]))
+devicePaddingTop = int(round(height*textInfo['paddingBorderRatio'] + totalTextHeight + height*textInfo['paddingDeviceRatio']))
 devicePadding = (devicePaddingLeft, devicePaddingTop)
 
 bg.paste(deviceBg, devicePadding, mask=deviceBg)
