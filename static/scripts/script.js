@@ -23,22 +23,30 @@ $(document).ready(function() {
 	});
 
 
+	var request;
+
 	// NOTE: #mainForm is form ID
-	$("#mainForm").submit(function(event){
+	$("#mainForm :input").change(function() {
 
 		console.log("submitted #main-form form");
-		event.preventDefault();
+		//event.preventDefault();
+
+		if (request) {
+			request.abort();
+		}
+
+		$thisForm = $('#mainForm');
 
 		$inputText = $("#inputText");
 		$inputImage = $("#inputImage");
 		if( (!$.trim($inputText.val())) || (!$.trim($inputImage.val())) ){
-			alert("Input cannot be empty!");
+			//alert("Input cannot be empty!");
 		}else{
-			var serializedData = new FormData($('#mainForm')[0]);
+			var serializedData = new FormData($thisForm[0]);
 
 			request = $.ajax({
-				type: $(this).attr('method') || 'POST',
-				url: $(this).attr('action') || window.location.pathname + window.location.search,
+				type: $thisForm.attr('method') || 'POST',
+				url: $thisForm.attr('action') || window.location.pathname + window.location.search,
 				data: serializedData,
 				contentType: false,
 				processData: false
