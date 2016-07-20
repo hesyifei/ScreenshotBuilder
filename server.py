@@ -1,6 +1,7 @@
-import os, tempfile
+import sys, os, tempfile
 from flask import Flask, request, render_template, send_from_directory, url_for, jsonify
 from werkzeug import secure_filename
+from genImage import generateImage
 
 app = Flask(__name__)
 app.config['ALLOWED_EXTENSIONS'] = set(['jpg', 'jpeg', 'png'])
@@ -27,6 +28,7 @@ def upldfile():
 				files.save(os.path.join(temp_dir, filename))
 				file_size = os.path.getsize(os.path.join(temp_dir, filename))
 				print(file_size)
+				generateImage()
 				return jsonify(name=filename, size=file_size)
 
 
