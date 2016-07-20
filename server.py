@@ -24,13 +24,15 @@ def upldfile():
 		inputImage = request.files['inputImage']
 		print(inputImage)
 		if inputImage and allowed_file(inputImage.filename):
-			millis = int(round(time.time() * 1000))
-			filename = "prefix_projectName_"+str(millis)+os.path.splitext(inputImage.filename)[1]
+			millisToBeUsed = int(round(time.time() * 1000))
+			filename = "prefix_projectName_"+str(millisToBeUsed)+os.path.splitext(inputImage.filename)[1]
 			print('FileName: ' + filename)
 			updir = os.path.join(basedir, 'static/upload/')
 			inputImage.save(os.path.join(updir, filename))
 			file_size = os.path.getsize(os.path.join(updir, filename))
-			return jsonify(name=filename, size=file_size)
+			generatedImageBase64 = generateImage()
+			print("got base64 of generated image")
+			return jsonify(imgBase64=generatedImageBase64, oriImgFileName=filename)
 
 
 if __name__ == "__main__":

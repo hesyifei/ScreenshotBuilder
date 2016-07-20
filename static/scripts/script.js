@@ -47,7 +47,8 @@ $(document).ready(function() {
 			request.done(function (response, textStatus, jqXHR){
 				console.log("AJAX get success result: "+response);
 
-				//$("p#send-result").html(response);
+				$('#result-image').attr("data-original-image-name", response['oriImgFileName']);
+				$('#result-image').attr("src", response['imgBase64']);
 
 			});
 

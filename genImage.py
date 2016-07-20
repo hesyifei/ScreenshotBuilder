@@ -1,4 +1,7 @@
+import base64
 from PIL import Image, ImageFont, ImageDraw
+from io import BytesIO
+
 
 def generateImage():
 	width, height = (1080, 1920)
@@ -45,16 +48,18 @@ def generateImage():
 	oriDeviceSize = deviceBg.size
 	deviceBg.thumbnail((width, height), Image.ANTIALIAS)
 
+	'''
 	print(height*textInfo['paddingBorderRatio'])
 	print(totalTextHeight)
 	print(height*textInfo['paddingDeviceRatio'])
+	'''
 
 	devicePaddingLeft = int((width - deviceBg.size[0])/2)
 	devicePaddingTop = int(round(height*textInfo['paddingBorderRatio'] + totalTextHeight + height*textInfo['paddingDeviceRatio']))
 	devicePadding = (devicePaddingLeft, devicePaddingTop)
 
 	bg.paste(deviceBg, devicePadding, mask=deviceBg)
-	print(deviceBg.format, deviceBg.size, deviceBg.mode)
+	#print(deviceBg.format, deviceBg.size, deviceBg.mode)
 
 	deviceScale = deviceBg.size[0]/oriDeviceSize[0]
 
@@ -62,19 +67,27 @@ def generateImage():
 	screenshot = Image.open(screenshot)
 	screenshot.thumbnail((deviceBg.size[0]*(screenWidth/oriDeviceSize[0]), deviceBg.size[1]*(screenHeight/oriDeviceSize[1])), Image.ANTIALIAS)
 	bg.paste(screenshot, (devicePaddingLeft+int(screenPaddingLeft*deviceScale), devicePaddingTop+int(screenPaddingTop*deviceScale)), mask=screenshot)
-	print(screenshot.format, screenshot.size, screenshot.mode)
+	#print(screenshot.format, screenshot.size, screenshot.mode)
 
 
 	deviceFore = Image.open(deviceImagePathPrefix+"_fore.png")
 	deviceFore.thumbnail((width, height), Image.ANTIALIAS)
 	bg.paste(deviceFore, devicePadding, mask=deviceFore)
-	print(deviceFore.format, deviceFore.size, deviceFore.mode)
+	#print(deviceFore.format, deviceFore.size, deviceFore.mode)
 
 
 	deviceShadow = Image.open(deviceImagePathPrefix+"_shadow.png")
 	deviceShadow.thumbnail((width, height), Image.ANTIALIAS)
 	bg.paste(deviceShadow, devicePadding, mask=deviceShadow)
-	print(deviceShadow.format, deviceShadow.size, deviceShadow.mode)
+	#print(deviceShadow.format, deviceShadow.size, deviceShadow.mode)
 
 
-	bg.show()
+	#bg.show()
+
+	# http://stackoverflow.com/q/16065694/2603230
+	outputBuffer = BytesIO()
+	bg.save(outputBuffer, format='JPEG')
+	bgBase64Data = outputBuffer.getvalue()
+
+	# http://stackoverflow.com/q/16748083/2603230
+	return 'data:image/jpeg;base64,' + base64.b64encode(bgBase64Data).decode()
