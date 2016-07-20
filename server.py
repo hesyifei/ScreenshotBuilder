@@ -20,8 +20,9 @@ def homePage():
 @app.route('/generateImage', methods=['POST'])
 def upldfile():
 	if request.method == 'POST':
-		print(request.form['inputText'])
+		inputText = request.form['inputText']
 		inputImage = request.files['inputImage']
+		print(inputText)
 		print(inputImage)
 		if inputImage and allowed_file(inputImage.filename):
 			millisToBeUsed = int(round(time.time() * 1000))
@@ -30,7 +31,7 @@ def upldfile():
 			updir = os.path.join(basedir, 'static/upload/')
 			inputImage.save(os.path.join(updir, filename))
 			file_size = os.path.getsize(os.path.join(updir, filename))
-			generatedImageBase64 = generateImage()
+			generatedImageBase64 = generateImage(inputText)
 			print("got base64 of generated image")
 			return jsonify(imgBase64=generatedImageBase64, oriImgFileName=filename)
 

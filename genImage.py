@@ -3,7 +3,7 @@ from PIL import Image, ImageFont, ImageDraw
 from io import BytesIO
 
 
-def generateImage():
+def generateImage(inputText):
 	width, height = (1080, 1920)
 	backgroundColor = "blue"
 	deviceName = "nexus_6p"
@@ -12,7 +12,7 @@ def generateImage():
 	screenPaddingLeft, screenPaddingTop = (195, 329)
 	screenshot = "screenshot.png"
 	textInfo = {
-		"text": "Hello\nWorld!",
+		"text": inputText,
 		"textColor": "white",
 		"fontSize": 100,
 		"fontFile": "Georgia Italic.ttf",
