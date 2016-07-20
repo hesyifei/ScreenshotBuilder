@@ -1,72 +1,92 @@
+var generateImageUrl = "/generateImage";
+
 $(document).ready(function() {
 	console.log("document ready");
 
+	if (!("FormData" in window)) {
+		// FormData is not supported; degrade gracefully/ alert the user as appropiate
+		alert("FormData is not supported on your browser! Please try a modern browser!")
+	}
 
-	// Clear event
-	$('.image-preview-clear').click(function(){
-		$('.image-preview-filename').val("");
-		$('.image-preview-clear').hide();
-		$('.image-preview-input input:file').val("");
-		$(".image-preview-input-title").text("Browse");
-	});
-	// Create the preview image
-	$(".image-preview-input input:file").change(function (){
+	$(".screenshot-input-image input:file").change(function (){
 		var file = this.files[0];
 		var reader = new FileReader();
-		// Set preview image into the popover data-content
-		reader.onload = function (e) {
-			$(".image-preview-input-title").text("Change");
-			$(".image-preview-clear").show();
-			$(".image-preview-filename").val(file.name);
-		}
 		reader.readAsDataURL(file);
+
+		console.log('inputImage changed');
+
+		var $thisForm = $(this).closest('form')[0];
+		uploadScreenshotInfo($thisForm, $($($thisForm.closest("div.screenshot-input-form")).find("#inputText")).val(), true);
 	});
 
 
-	var request;
-
-	// NOTE: #mainForm is form ID
-	$("#mainForm :input").change(function() {
-
-		console.log("submitted #main-form form");
-		//event.preventDefault();
-
-		if (request) {
-			request.abort();
-		}
-
-		$thisForm = $('#mainForm');
-
-		$inputText = $("#inputText");
-		$inputImage = $("#inputImage");
-		if( (!$.trim($inputText.val())) || (!$.trim($inputImage.val())) ){
-			//alert("Input cannot be empty!");
-		}else{
-			var serializedData = new FormData($thisForm[0]);
-
-			request = $.ajax({
-				type: $thisForm.attr('method') || 'POST',
-				url: $thisForm.attr('action') || window.location.pathname + window.location.search,
-				data: serializedData,
-				contentType: false,
-				processData: false
-			});
-
-			request.done(function (response, textStatus, jqXHR){
-				console.log("AJAX get success result: "+response);
-
-				$('#result-image').attr("data-original-image-name", response['oriImgFileName']);
-				$('#result-image').attr("src", response['imgBase64']);
-
-			});
-
-			request.fail(function (jqXHR, textStatus, errorThrown){
-				console.error("AJAX get error: "+textStatus, errorThrown);
-			});
-
-			request.always(function () {
-			});
-		}
-	});
+	var inputTextTypeWatchOptions = {
+		callback: function (value) {
+			console.log('inputText changed: (' + (this.type || this.nodeName) + ') ' + value);
+			uploadScreenshotInfo($(this), value, false);
+		},
+		wait: 750,
+		highlight: true,
+		allowSubmit: false,
+		captureLength: 0
+	}
+	$("#inputText").typeWatch(inputTextTypeWatchOptions);
 
 });
+
+
+function uploadScreenshotInfo($currentThis, inputText, containScreenshot) {
+	console.log($currentThis);
+
+	inputTextVal = inputText;
+	inputPrefix = $("#inputPrefix").val();
+	if(inputPrefix.length == 0){
+		return;
+	}
+
+	if(containScreenshot){
+		serializedData = new FormData($currentThis);
+		serializedData.append('inputText', inputTextVal);
+		serializedData.append('inputPrefix', inputPrefix);
+	}else{
+		serializedData = {
+			'inputText': inputTextVal,
+			'inputPrefix': inputPrefix
+		}
+	}
+	console.log(serializedData);
+
+
+	if(containScreenshot){
+		request = $.ajax({
+			type: "POST",
+			url: generateImageUrl,
+			data: serializedData,
+			contentType: false,
+			processData: false
+		});
+	}else{
+		request = $.ajax({
+			type: "POST",
+			url: generateImageUrl,
+			data: serializedData
+		});
+	}
+
+	request.done(function (response, textStatus, jqXHR){
+		console.log("AJAX get success result: "+response);
+
+		$resultImage = $($($currentThis.closest("div.screenshot-input-form")).prev("div.screenshot-image")).find('#result-image');
+		console.log($resultImage);
+
+		$resultImage.attr("data-original-image-name", response['oriImgFileName']);
+		$resultImage.attr("src", response['imgBase64']);
+	});
+
+	request.fail(function (jqXHR, textStatus, errorThrown){
+		console.error("AJAX get error: "+textStatus, errorThrown);
+	});
+
+	request.always(function () {
+	});
+}
