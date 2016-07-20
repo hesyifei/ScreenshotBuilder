@@ -16,15 +16,62 @@ h1, h2, h3, h4, h5, h6 {
 
 
 
-.image-preview-input {
+.list-inline {
+	white-space: nowrap;
+}
+
+.screenshot-list {
+	overflow-x: scroll;
+	overflow-y: hidden;
+	height: 100%;
+	width: 90%;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	margin: auto;
+	text-align: center;
+}
+
+.screenshot-item {
+	border: 1px solid black;
+	margin-left: 15px;
+	margin-right: 15px;
+	width: 200px;
+	/*border: none;*/
+}
+
+.screenshot-image {
+	height: 100%;
+	background-color: yellow;
+}
+
+.screenshot-image img {
+	max-width: 100%;
+	height: auto;
+}
+
+
+.screenshot-input-form {
+	margin-top: 20px;
+	height: 100px;
+	background-color: red;
+	text-align: center;
+}
+
+.screenshot-input-image-parent {
+
+}
+
+.screenshot-input-image {
 	position: relative;
 	overflow: hidden;
 	margin: 0px;
 	color: #333;
 	background-color: #fff;
 	border-color: #ccc;
+	border-radius: 4px !important;
 }
-.image-preview-input input[type=file] {
+
+.screenshot-input-image input[type=file] {
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -35,6 +82,7 @@ h1, h2, h3, h4, h5, h6 {
 	opacity: 0;
 	filter: alpha(opacity=0);
 }
-.image-preview-input-title {
-	margin-left:2px;
+
+.screenshot-input-image-title {
+	margin-left: 2px;
 }
