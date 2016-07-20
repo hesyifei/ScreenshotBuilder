@@ -2,6 +2,9 @@
 device_image/*
 !device_image/README.md
 
+upload/*
+!upload/.keep
+
 
 
 ###### OTHER ######
