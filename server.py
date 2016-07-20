@@ -18,24 +18,37 @@ def homePage():
 	return render_template('index.html')
 
 @app.route('/generateImage', methods=['POST'])
-def upldfile():
+def uploadAndGenImage():
 	if request.method == 'POST':
+		print(request.form)
+
+		inputPrefix = request.form['inputPrefix']
 		inputText = request.form['inputText']
-		inputImage = request.files['inputImage']
+		print(inputPrefix)
 		print(inputText)
+
+		filename = "image_"+inputPrefix+".png"
+		print('FileName: ' + filename)
+		fileDir = os.path.join(basedir, 'static/upload/')
+		fileDirWithName = os.path.join(fileDir, filename)
+		print('FileName: ' + fileDirWithName)
+
+
+		# use request.files.get() as it is optional
+		inputImage = request.files.get('inputImage')
 		print(inputImage)
 		if inputImage and allowed_file(inputImage.filename):
-			millisToBeUsed = int(round(time.time() * 1000))
-			filename = "prefix_projectName_"+str(millisToBeUsed)+os.path.splitext(inputImage.filename)[1]
-			print('FileName: ' + filename)
-			updir = os.path.join(basedir, 'static/upload/')
-			inputImage.save(os.path.join(updir, filename))
-			file_size = os.path.getsize(os.path.join(updir, filename))
+			print("Have new screenshot")
+			inputImage.save(fileDirWithName)
+
+
+		if os.path.isfile(fileDirWithName):
 			generatedImageBase64 = generateImage(inputText)
 			print("got base64 of generated image")
 			return jsonify(imgBase64=generatedImageBase64, oriImgFileName=filename)
+			#file_size = os.path.getsize(fileDirWithName)
+
 
 
 if __name__ == "__main__":
-	app.run()
-
+	app.run(debug=False)
