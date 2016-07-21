@@ -3,14 +3,14 @@ from PIL import Image, ImageFont, ImageDraw
 from io import BytesIO
 
 
-def generateImage(inputText):
+def generateImage(inputText, inputImageDir):
 	width, height = (1080, 1920)
 	backgroundColor = "blue"
 	deviceName = "nexus_6p"
 	deviceOrientation = "port"
 	screenWidth, screenHeight = (1440, 2560)
 	screenPaddingLeft, screenPaddingTop = (195, 329)
-	screenshot = "screenshot.png"
+	screenshot = inputImageDir
 	textInfo = {
 		"text": inputText,
 		"textColor": "white",
@@ -66,7 +66,7 @@ def generateImage(inputText):
 
 	screenshot = Image.open(screenshot)
 	screenshot.thumbnail((deviceBg.size[0]*(screenWidth/oriDeviceSize[0]), deviceBg.size[1]*(screenHeight/oriDeviceSize[1])), Image.ANTIALIAS)
-	bg.paste(screenshot, (devicePaddingLeft+int(screenPaddingLeft*deviceScale), devicePaddingTop+int(screenPaddingTop*deviceScale)), mask=screenshot)
+	bg.paste(screenshot, (devicePaddingLeft+int(screenPaddingLeft*deviceScale), devicePaddingTop+int(screenPaddingTop*deviceScale)))
 	#print(screenshot.format, screenshot.size, screenshot.mode)
 
 

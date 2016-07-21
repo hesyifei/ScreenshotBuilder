@@ -45,7 +45,7 @@ def uploadAndGenImage():
 
 
 		if os.path.isfile(fileDirWithName):
-			generatedImageBase64 = generateImage(inputText)
+			generatedImageBase64 = generateImage(inputText, fileDirWithName)
 			print("got base64 of generated image")
 			return jsonify(imgBase64=generatedImageBase64, oriImgFileName=filename)
 			#file_size = os.path.getsize(fileDirWithName)
