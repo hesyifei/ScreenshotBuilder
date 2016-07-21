@@ -20,14 +20,14 @@ $(document).ready(function() {
 		console.log('inputImage changed');
 
 		var $thisForm = $(this).closest('form');
-		uploadScreenshotInfo($thisForm, $($($thisForm[0].closest("div.screenshot-input-form")).find(".input-text")).val(), true);
+		uploadScreenshotInfo($thisForm, true);
 	});
 
 
 	var inputTextTypeWatchOptions = {
 		callback: function (value) {
 			console.log('inputText changed: (' + (this.type || this.nodeName) + ') ' + value);
-			uploadScreenshotInfo($(this), value, false);
+			uploadScreenshotInfo($(this), false);
 		},
 		wait: 750,
 		highlight: true,
@@ -39,17 +39,20 @@ $(document).ready(function() {
 });
 
 
-function uploadScreenshotInfo($currentThis, inputText, containScreenshot) {
+function uploadScreenshotInfo($currentThis, containScreenshot) {
 	console.log($currentThis);
 
-	inputTextVal = inputText;
 	inputScreenshotId = $currentThis.closest("li.screenshot-item").attr('id').replace(/screenshotItem/, "");
 	inputPrefix = $("#inputPrefix").val() + "_" + inputScreenshotId;
 	if(inputPrefix.length == 0){
 		return;
 	}
 	console.log(inputPrefix);
-	inputBgColor = $($($currentThis[0].closest("div.screenshot-input-form")).find(".input-bg-color")).val();
+
+	$inputForm = $($currentThis[0].closest("div.screenshot-input-form"));
+	inputTextVal = $.trim($($inputForm.find(".input-text")).val());
+	inputBgColor = $($($inputForm).find(".input-bg-color")).val();
+	console.log(inputTextVal);
 	console.log(inputBgColor);
 
 	if(containScreenshot){
