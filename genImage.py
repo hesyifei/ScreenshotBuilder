@@ -3,9 +3,9 @@ from PIL import Image, ImageFont, ImageDraw
 from io import BytesIO
 
 
-def generateImage(inputText, inputImageDir):
+def generateImage(inputText, inputBgColor, inputImageDir):
 	width, height = (1080, 1920)
-	backgroundColor = "blue"
+	backgroundColor = inputBgColor
 	deviceName = "nexus_6p"
 	deviceOrientation = "port"
 	screenWidth, screenHeight = (1440, 2560)

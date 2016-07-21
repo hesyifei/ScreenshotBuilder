@@ -8,6 +8,10 @@ $(document).ready(function() {
 		alert("FormData is not supported on your browser! Please try a modern browser!")
 	}
 
+	$('.input-color-picker').colorpicker({
+		format: "hex"
+	});
+
 	$(".screenshot-input-image input:file").change(function (){
 		var file = this.files[0];
 		var reader = new FileReader();
@@ -45,14 +49,18 @@ function uploadScreenshotInfo($currentThis, inputText, containScreenshot) {
 		return;
 	}
 	console.log(inputPrefix);
+	inputBgColor = $($($currentThis[0].closest("div.screenshot-input-form")).find(".input-bg-color")).val();
+	console.log(inputBgColor);
 
 	if(containScreenshot){
 		serializedData = new FormData($currentThis[0]);
 		serializedData.append('inputText', inputTextVal);
+		serializedData.append('inputBgColor', inputBgColor);
 		serializedData.append('inputPrefix', inputPrefix);
 	}else{
 		serializedData = {
 			'inputText': inputTextVal,
+			'inputBgColor': inputBgColor,
 			'inputPrefix': inputPrefix
 		}
 	}

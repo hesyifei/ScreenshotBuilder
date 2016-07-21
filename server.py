@@ -26,8 +26,10 @@ def uploadAndGenImage():
 
 		inputPrefix = request.form['inputPrefix']
 		inputText = request.form['inputText']
+		inputBgColor = request.form['inputBgColor']
 		print(inputPrefix)
 		print(inputText)
+		print(inputBgColor)
 
 		filename = "image_"+inputPrefix+".png"
 		print('FileName: ' + filename)
@@ -45,7 +47,7 @@ def uploadAndGenImage():
 
 
 		if os.path.isfile(fileDirWithName):
-			generatedImageBase64 = generateImage(inputText, fileDirWithName)
+			generatedImageBase64 = generateImage(inputText, inputBgColor, fileDirWithName)
 			print("got base64 of generated image")
 			return jsonify(imgBase64=generatedImageBase64, oriImgFileName=filename)
 			#file_size = os.path.getsize(fileDirWithName)
