@@ -55,36 +55,25 @@ function uploadScreenshotInfo($currentThis, containScreenshot) {
 	console.log(inputTextVal);
 	console.log(inputBgColor);
 
+	var serializedData;
 	if(containScreenshot){
 		serializedData = new FormData($currentThis[0]);
-		serializedData.append('inputText', inputTextVal);
-		serializedData.append('inputBgColor', inputBgColor);
-		serializedData.append('inputPrefix', inputPrefix);
 	}else{
-		serializedData = {
-			'inputText': inputTextVal,
-			'inputBgColor': inputBgColor,
-			'inputPrefix': inputPrefix
-		}
+		serializedData = new FormData();
 	}
+	serializedData.append('inputText', inputTextVal);
+	serializedData.append('inputBgColor', inputBgColor);
+	serializedData.append('inputPrefix', inputPrefix);
 	console.log(serializedData);
 
 
-	if(containScreenshot){
-		request = $.ajax({
-			type: "POST",
-			url: generateImageUrl,
-			data: serializedData,
-			contentType: false,
-			processData: false
-		});
-	}else{
-		request = $.ajax({
-			type: "POST",
-			url: generateImageUrl,
-			data: serializedData
-		});
-	}
+	request = $.ajax({
+		type: "POST",
+		url: generateImageUrl,
+		data: serializedData,
+		contentType: false,
+		processData: false
+	});
 
 	request.done(function (response, textStatus, jqXHR){
 		console.log("AJAX get success result: "+response);
