@@ -27,16 +27,15 @@ div.screenshot-list {
 	overflow-y: hidden;
 	height: 100%;
 	width: 100%;
-	padding-top: 20px;
 	margin: auto;
 	text-align: center;
+	background-color: #F5F7F8;
 	/* Workaround from http://stackoverflow.com/q/5256533/2603230 */
 	font-size: 0;
 }
 
 ul.list-inline {
 	white-space: nowrap;
-	background-color: #F5F7F8;
 	margin-bottom: 0px;
 }
 
@@ -56,15 +55,17 @@ li.screenshot-item:not(:last-child) {
 
 .screenshot-image {
 	height: 100%;
-	/*background-color: yellow;*/
 	border-bottom: 1px solid #DADCDE;
+	padding: 20px;
+	background-color: white;
 }
 
 .screenshot-image img {
 	max-width: 100%;
 	height: auto;
-	padding: 20px;
-	background-color: white;
+	-webkit-box-shadow: 0 1px 4px rgba(0,0,0,.04), 0 0px 1px rgba(28,39,72,.15), 0 6px 34px rgba(0,0,0,.09);
+	-moz-box-shadow: 0 1px 4px rgba(0,0,0,.04), 0 0px 1px rgba(28,39,72,.15), 0 6px 34px rgba(0,0,0,.09);
+	box-shadow: 0 1px 4px rgba(0,0,0,.04), 0 0px 1px rgba(28,39,72,.15), 0 6px 34px rgba(0,0,0,.09);
 }
 
 
