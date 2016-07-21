@@ -39,10 +39,12 @@ function uploadScreenshotInfo($currentThis, inputText, containScreenshot) {
 	console.log($currentThis);
 
 	inputTextVal = inputText;
-	inputPrefix = $("#inputPrefix").val();
+	inputScreenshotId = $currentThis.closest("li.screenshot-item").attr('id').replace(/screenshotItem/, "");
+	inputPrefix = $("#inputPrefix").val() + "_" + inputScreenshotId;
 	if(inputPrefix.length == 0){
 		return;
 	}
+	console.log(inputPrefix);
 
 	if(containScreenshot){
 		serializedData = new FormData($currentThis);
