@@ -16,7 +16,7 @@ $(document).ready(function() {
 		console.log('inputImage changed');
 
 		var $thisForm = $(this).closest('form')[0];
-		uploadScreenshotInfo($thisForm, $($($thisForm.closest("div.screenshot-input-form")).find("#inputText")).val(), true);
+		uploadScreenshotInfo($thisForm, $($($thisForm.closest("div.screenshot-input-form")).find(".input-text")).val(), true);
 	});
 
 
@@ -30,7 +30,7 @@ $(document).ready(function() {
 		allowSubmit: false,
 		captureLength: 0
 	}
-	$("#inputText").typeWatch(inputTextTypeWatchOptions);
+	$(".input-text").typeWatch(inputTextTypeWatchOptions);
 
 });
 
@@ -76,7 +76,7 @@ function uploadScreenshotInfo($currentThis, inputText, containScreenshot) {
 	request.done(function (response, textStatus, jqXHR){
 		console.log("AJAX get success result: "+response);
 
-		$resultImage = $($($currentThis.closest("div.screenshot-input-form")).prev("div.screenshot-image")).find('#result-image');
+		$resultImage = $($($currentThis.closest("div.screenshot-input-form")).prev("div.screenshot-image")).find('.result-image');
 		console.log($resultImage);
 
 		$resultImage.attr("data-original-image-name", response['oriImgFileName']);

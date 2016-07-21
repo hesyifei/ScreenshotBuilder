@@ -6,6 +6,8 @@ from genImage import generateImage
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
+screenshotList = ["tst", "haa"]
+
 app = Flask(__name__)
 app.config['ALLOWED_EXTENSIONS'] = set(['jpg', 'jpeg', 'png'])
 
@@ -15,7 +17,7 @@ def allowed_file(filename):
 
 @app.route("/")
 def homePage():
-	return render_template('index.html')
+	return render_template('index.html', screenshots=screenshotList)
 
 @app.route('/generateImage', methods=['POST'])
 def uploadAndGenImage():

@@ -28,62 +28,46 @@
 <div class="container">
 
 <div class="text-center">
-	<h1>Screenshot Builder</h2>
+	<h1>Screenshot Builder</h1>
 </div>
 
 <div class="screenshot-list">
 	<ul class="list-inline">
-		<li class="screenshot-item">
+		{% for screenshot in screenshots %}
+		<li class="screenshot-item" id="screenshotItem{{ loop.index }}">
 			<div class="screenshot-image">
-				<img src="" id="result-image" />
+				<img src="" class="result-image" id="resultImage{{ loop.index }}" alt="Screenshot" />
 			</div>
 			<div class="screenshot-input-form">
 				<div class="form-group">
-					<textarea class="form-control" id="inputText" name="inputText" placeholder="Hello world!" required="required"></textarea>
+					<textarea class="form-control input-text" id="inputText{{ loop.index }}" placeholder="Hello world!" required="required"></textarea>
 				</div>
 				<div class="input-group-btn screenshot-input-image-parent">
 					<div class="btn btn-default screenshot-input-image">
 						<span class="glyphicon glyphicon-folder-open"></span>
 						<span class="screenshot-input-image-title">Browse</span>
-						<form class="upload-image-form" id="imageForm" enctype="multipart/form-data">
-							<input type="file" accept="image/png, image/jpeg" id="inputImage" name="inputImage" />
+						<form class="upload-image-form" id="imageForm{{ loop.index }}" enctype="multipart/form-data">
+							<input type="file" accept="image/png, image/jpeg" id="inputImage{{ loop.index }}" name="inputImage" />
 						</form>
 					</div>
 				</div>
 			</div>
 		</li>
-		<li class="screenshot-item">
-			<div class="screenshot-image">
-				HAHA
-			</div>
-			<div class="screenshot-input-form">
-				TEST
-			</div>
-		</li>
-		<li class="screenshot-item">
-			<div class="screenshot-image">
-				HAHA
-			</div>
-			<div class="screenshot-input-form">
-				TEST
-			</div>
-		</li>
+		{% endfor %}
 	</ul>
 </div>
 
-<form class="form-horizontal main-form" id="mainForm" method="POST" action="/generateImage" enctype="multipart/form-data">
-	<div class="form-group">
-		<label for="inputPrefix" class="col-sm-2 control-label">PREFIX_NAME_ID</label>
-		<div class="col-sm-10">
-			<input type="text" class="form-control" id="inputPrefix" name="inputPrefix" placeholder="arefly_wordcounter_1" required="required">
-		</div>
+<div class="form-group">
+	<label for="inputPrefix" class="col-sm-2 control-label">PREFIX_NAME_ID</label>
+	<div class="col-sm-10">
+		<input type="text" class="form-control" id="inputPrefix" placeholder="arefly_wordcounter_1" required="required">
 	</div>
-	<!--<div class="form-group">
-		<div class="col-sm-offset-2 col-sm-10">
-			<button type="submit" class="btn btn-default">Generate Image</button>
-		</div>
-	</div>-->
-</form>
+</div>
+<!--<div class="form-group">
+	<div class="col-sm-offset-2 col-sm-10">
+		<button type="submit" class="btn btn-default">Generate Image</button>
+	</div>
+</div>-->
 
 <div id="footer">
 	<div class="container">
