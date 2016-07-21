@@ -1,5 +1,20 @@
 var generateImageUrl = "/generateImage";
 
+var getUrlParameter = function getUrlParameter(sParam) {
+	var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+		sURLVariables = sPageURL.split('&'),
+		sParameterName,
+		i;
+
+	for (i = 0; i < sURLVariables.length; i++) {
+		sParameterName = sURLVariables[i].split('=');
+
+		if (sParameterName[0] === sParam) {
+			return sParameterName[1] === undefined ? true : sParameterName[1];
+		}
+	}
+};
+
 $(document).ready(function() {
 	console.log("document ready");
 
@@ -48,7 +63,7 @@ function uploadScreenshotInfo($currentThis, containScreenshot) {
 	console.log($currentThis);
 
 	inputScreenshotId = $currentThis.closest("li.screenshot-item").attr('id').replace(/screenshotItem/, "");
-	inputPrefix = $("#inputPrefix").val() + "_" + inputScreenshotId;
+	inputPrefix = getUrlParameter('project_prefix') + "_" + inputScreenshotId;
 	if(inputPrefix.length == 0){
 		return;
 	}
