@@ -1,6 +1,5 @@
 body {
 	padding-top: 40px;
-	padding-bottom: 40px;
 	background-color: white;
 	font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 14px;
@@ -22,32 +21,35 @@ h1, h2, h3, h4, h5, h6 {
 	padding-right: 0;
 }
 
-.list-inline {
-	white-space: nowrap;
-}
 
-.screenshot-list {
+div.screenshot-list {
 	overflow-x: scroll;
 	overflow-y: hidden;
 	height: 100%;
 	width: 100%;
 	padding-top: 20px;
-	padding-bottom: 20px;
 	margin: auto;
 	text-align: center;
 	/* Workaround from http://stackoverflow.com/q/5256533/2603230 */
 	font-size: 0;
 }
 
-.screenshot-item {
+ul.list-inline {
+	white-space: nowrap;
+	background-color: #F5F7F8;
+	margin-bottom: 0px;
+}
+
+li.screenshot-item {
 	border: none;
 	padding-left: 0px !important;
 	padding-right: 0px !important;
+	vertical-align: top;
 	width: 250px;
 	/* Same workaround from http://stackoverflow.com/q/5256533/2603230 */
 	font-size: 14px;
 }
-.screenshot-item:not(:last-child) {
+li.screenshot-item:not(:last-child) {
 	border-right: 1px solid #DAE2E6;
 }
 
@@ -55,19 +57,18 @@ h1, h2, h3, h4, h5, h6 {
 .screenshot-image {
 	height: 100%;
 	/*background-color: yellow;*/
+	border-bottom: 1px solid #DADCDE;
 }
 
 .screenshot-image img {
 	max-width: 100%;
 	height: auto;
-	padding-left: 20px;
-	padding-right: 20px;
+	padding: 20px;
+	background-color: white;
 }
 
 
 .screenshot-input-form {
-	background-color: #F5F7F8;
-	margin-top: 20px;
 	padding: 20px;
 	text-align: center;
 }
