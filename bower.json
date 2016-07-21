@@ -15,6 +15,7 @@
     "tests"
   ],
   "dependencies": {
-    "jquery-typewatch": "^2.2.2"
+    "jquery-typewatch": "^2.2.2",
+    "mjolnic-bootstrap-colorpicker": "bootstrap-colorpicker#^2.3.3"
   }
 }
