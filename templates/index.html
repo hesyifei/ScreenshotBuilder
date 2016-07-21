@@ -44,6 +44,9 @@
 				<div class="form-group">
 					<textarea class="form-control input-text" id="inputText{{ loop.index }}" placeholder="Hello world!" required="required"></textarea>
 				</div>
+				<div class="form-group">
+					<input class="form-control input-color-picker input-bg-color" id="inputBgColor{{ loop.index }}" type="text" value="#5367ce" />
+				</div>
 				<div class="input-group-btn screenshot-input-image-parent">
 					<div class="btn btn-default screenshot-input-image">
 						<span class="glyphicon glyphicon-folder-open"></span>
@@ -53,7 +56,6 @@
 						</form>
 					</div>
 				</div>
-				<input class="form-control input-color-picker input-bg-color" id="inputBgColor{{ loop.index }}" type="text" value="#5367ce" />
 			</div>
 		</li>
 		{% endfor %}

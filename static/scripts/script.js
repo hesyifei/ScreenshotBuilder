@@ -26,7 +26,7 @@ $(document).ready(function() {
 
 	var inputTextTypeWatchOptions = {
 		callback: function (value) {
-			console.log('inputText changed: (' + (this.type || this.nodeName) + ') ' + value);
+			console.log('typeWatch callback: (' + (this.type || this.nodeName) + ') ' + value);
 			uploadScreenshotInfo($(this), false);
 		},
 		wait: 750,
@@ -35,6 +35,11 @@ $(document).ready(function() {
 		captureLength: 0
 	}
 	$(".input-text").typeWatch(inputTextTypeWatchOptions);
+
+	$('.input-color-picker').focusout(function() {
+		console.log('input-color-picker changed');
+		uploadScreenshotInfo($(this), false);
+	});
 
 });
 
