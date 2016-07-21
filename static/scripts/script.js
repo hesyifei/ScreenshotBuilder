@@ -15,8 +15,8 @@ $(document).ready(function() {
 
 		console.log('inputImage changed');
 
-		var $thisForm = $(this).closest('form')[0];
-		uploadScreenshotInfo($thisForm, $($($thisForm.closest("div.screenshot-input-form")).find(".input-text")).val(), true);
+		var $thisForm = $(this).closest('form');
+		uploadScreenshotInfo($thisForm, $($($thisForm[0].closest("div.screenshot-input-form")).find(".input-text")).val(), true);
 	});
 
 
@@ -47,7 +47,7 @@ function uploadScreenshotInfo($currentThis, inputText, containScreenshot) {
 	console.log(inputPrefix);
 
 	if(containScreenshot){
-		serializedData = new FormData($currentThis);
+		serializedData = new FormData($currentThis[0]);
 		serializedData.append('inputText', inputTextVal);
 		serializedData.append('inputPrefix', inputPrefix);
 	}else{
