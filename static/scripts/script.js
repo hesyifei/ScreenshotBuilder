@@ -86,6 +86,10 @@ function uploadScreenshotInfo($currentThis, containScreenshot) {
 	serializedData.append('inputPrefix', inputPrefix);
 	console.log(serializedData);
 
+	$resultImage = $inputForm.closest(".screenshot-item").find(".screenshot-image").find("img");
+	console.log($resultImage);
+
+	$resultImage.animate({opacity: 0.4}, 800);
 
 	request = $.ajax({
 		type: "POST",
@@ -110,5 +114,6 @@ function uploadScreenshotInfo($currentThis, containScreenshot) {
 	});
 
 	request.always(function () {
+		$resultImage.animate({opacity: 1.0}, 800);
 	});
 }
