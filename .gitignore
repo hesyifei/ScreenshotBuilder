@@ -1,6 +1,7 @@
 # see device_image/README.txt
 device_image/*
 !device_image/README.md
+!device_image/example_device/*
 
 static/upload/*
 !static/upload/.keep
