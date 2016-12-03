@@ -3,7 +3,7 @@ from PIL import Image, ImageFont, ImageDraw
 from io import BytesIO
 from configparser import ConfigParser
 
-def generateImage(textInfo, inputBgColor, deviceName, deviceOrientation, outputWidth, outputHeight, inputImageDir, outputImageDir):
+def generateImage(textInfo, inputBgColor, inputBgAlpha, deviceName, deviceOrientation, outputWidth, outputHeight, inputImageDir, outputImageDir):
 	width, height = (outputWidth, outputHeight)
 	screenshot = inputImageDir
 
@@ -17,7 +17,7 @@ def generateImage(textInfo, inputBgColor, deviceName, deviceOrientation, outputW
 
 
 	r,g,b = list(bytes.fromhex(inputBgColor))
-	bg = Image.new("RGBA", (width, height), (r,g,b,0))
+	bg = Image.new("RGBA", (width, height), (r,g,b,inputBgAlpha))
 
 	if textInfo['text'] != "":
 		lines = textInfo['text'].split("\n")
@@ -78,5 +78,7 @@ def generateImage(textInfo, inputBgColor, deviceName, deviceOrientation, outputW
 
 
 	bg.save(outputImageDir)
-	bg.show()
+
+	# commented as show() cannot show alpha correctly
+	#bg.show()
 

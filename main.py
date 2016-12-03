@@ -24,10 +24,12 @@ def main(argv):
 	textColor = "000000"
 	fontSize = 100
 	fontFile = "Arial.ttf"
+
 	backgroundColor = "ffffff"
+	backgroundAlpha = 100
 
 	try:
-		opts, args = getopt.getopt(argv, "i:o:n:d:t:c:s:f:b:", ["ifile=","ofile=","device=","deviceori=","text=","textcolor=","fontsize=","fontfile=","bgcolor="])
+		opts, args = getopt.getopt(argv, "i:o:n:d:t:c:s:f:b:a:", ["ifile=","ofile=","device=","deviceori=","text=","textcolor=","fontsize=","fontfile=","bgcolor=","bgalpha=0"])
 	except getopt.GetoptError:
 		showHintExit()
 	for opt, arg in opts:
@@ -52,6 +54,11 @@ def main(argv):
 			fontFile = arg
 		elif opt in ("-b", "--bgcolor"):
 			backgroundColor = arg
+		elif opt in ("-a", "--bgalpha"):
+			try:
+				backgroundAlpha = int(arg)
+			except ValueError:
+				showHintExit()
 	if inputFile == "" or outputFile == "" or deviceName == "" or deviceOrientation == "":
 		showHintExit()
 	else:
@@ -65,7 +72,8 @@ def main(argv):
 			"paddingDeviceRatio": 0.04,
 			"paddingEachLine": 20
 		}
-		generateImage(textInfo, backgroundColor, deviceName, deviceOrientation, 1080, 1920, inputFile, outputFile)
+		backgroundAlpha = int(255*(backgroundAlpha/100))
+		generateImage(textInfo, backgroundColor, backgroundAlpha, deviceName, deviceOrientation, 1080, 1920, inputFile, outputFile)
 		print("Saved the output image to:", outputFile)
 
 if __name__ == "__main__":
