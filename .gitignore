@@ -3,10 +3,6 @@ device_image/*
 !device_image/README.md
 !device_image/example_device/*
 
-static/upload/*
-!static/upload/.keep
-
-
 
 ###### OTHER ######
 
