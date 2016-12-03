@@ -3,4 +3,12 @@ A Python-based tool that helps you generate screenshots for App Store &amp; Goog
 
 Still developing...
 
-Main file: `server.py`
+Main file: `main.py`
+
+```
+main.py -i <inputFile> -o <outputFile> -t "<text>"
+
+optional input:
+text color: -c "#ffffff"
+background color: -b "#000000"
+```
