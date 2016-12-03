@@ -3,7 +3,7 @@ import sys, getopt
 from genImage import generateImage
 
 def showHintExit():
-	hint = 'usage: main.py -i <inputFile> -o <outputFile> -w <width> -h <height> -n "<device_name>" -d "<port/land>"\n\n' \
+	hint = 'usage: main.py -i <inputFile> -o <outputFile> -w <width> -h <height> -n "<device_name>" -d "<port/land>"\n\n'\
 	'optional input:\n'\
 	'text: -t "<text>"\n'\
 	'text color: -c "ffffff"\n'\
@@ -87,7 +87,7 @@ def main(argv):
 			"paddingEachLine": 20
 		}
 		backgroundAlpha = int(255*(backgroundAlpha/100))
-		generateImage(textInfo, backgroundColor, backgroundAlpha, deviceName, deviceOrientation, width, height, inputFile, outputFile)
+		generateImage(textInfo, backgroundColor, backgroundAlpha, deviceName, deviceOrientation, width, height, -0.05, 0.5, inputFile, outputFile)
 		print("Saved the output image to:", outputFile)
 
 if __name__ == "__main__":

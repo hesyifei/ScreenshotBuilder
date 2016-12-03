@@ -1,9 +1,9 @@
-import struct
+import struct, numpy
 from PIL import Image, ImageFont, ImageDraw
 from io import BytesIO
 from configparser import ConfigParser
 
-def generateImage(textInfo, inputBgColor, inputBgAlpha, deviceName, deviceOrientation, outputWidth, outputHeight, inputImageDir, outputImageDir):
+def generateImage(textInfo, inputBgColor, inputBgAlpha, deviceName, deviceOrientation, outputWidth, outputHeight, outputFadeFrom, outputFadeHeight, inputImageDir, outputImageDir):
 	width, height = (outputWidth, outputHeight)
 	screenshot = inputImageDir
 
@@ -76,6 +76,21 @@ def generateImage(textInfo, inputBgColor, inputBgAlpha, deviceName, deviceOrient
 	bg.paste(deviceShadow, devicePadding, mask=deviceShadow)
 	#print(deviceShadow.format, deviceShadow.size, deviceShadow.mode)
 
+
+	if outputFadeFrom < 0:
+		bg = bg.rotate(180, expand=True)
+
+	if outputFadeFrom != 0:
+		# http://stackoverflow.com/a/19236775/2603230
+		arr = numpy.array(bg)
+		alpha = arr[:, :, 3]
+		n = len(alpha)
+		#0.55 & 0.95
+		alpha[:] = numpy.interp(numpy.arange(n), [0, outputFadeHeight*n, (1-abs(outputFadeFrom))*n, n], [255, 255, 0, 0])[:,numpy.newaxis]
+		bg = Image.fromarray(arr, mode='RGBA')
+
+	if outputFadeFrom < 0:
+		bg = bg.rotate(180, expand=True)
 
 	bg.save(outputImageDir)
 
