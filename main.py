@@ -1,94 +1,55 @@
 #!/usr/bin/python
-import sys, getopt
+import sys, argparse
 from genImage import generateImage
 
-def showHintExit():
-	hint = 'usage: main.py -i <inputFile> -o <outputFile> -w <width> -h <height> -n "<device_name>" -d "<port/land>"\n\n'\
-	'optional input:\n'\
-	'text: -t "<text>"\n'\
-	'text color: -c "ffffff"\n'\
-	'font size: -s 100\n'\
-	'font file: -f "Arial.ttf"\n'\
-	'background color: -b "000000"\n'\
-	'background alpha: -a 50'
-	print(hint)
-	sys.exit(2)
-
 def main(argv):
-	inputFile = ""
-	outputFile = ""
+	parser = argparse.ArgumentParser(description='Generate screenshots for App Store & Google Play Store.', usage='%(prog)s [options]')
+	parser.add_argument('inputFile', help='input image (screenshot) path')
+	parser.add_argument('outputFile', help='path to output the generated image')
+	parser.add_argument('width', type=int, help='output image width')
+	parser.add_argument('height', type=int, help='output image height')
+	parser.add_argument('deviceName', help='the device border on the output image')
+	parser.add_argument('-do', '--deviceOrientation', choices=['port', 'land'], default='port', help='the device orientation on the output image')
+	parser.add_argument('-t', '--text', default='', help='text displayed on the output image')
+	parser.add_argument('-c', '--textColor', default='888888', help='color of the text displayed on the output image')
+	parser.add_argument('-s', '--fontSize', type=int, default=100, help='font size of the text displayed on the output image')
+	parser.add_argument('-f', '--fontFile', default='Arial.ttf', help='font of the text displayed on the output image')
+	parser.add_argument('-b', '--bgColor', default='ffffff', help='the background color of the output image')
+	parser.add_argument('-a', '--bgAlpha', type=int, default=100, help='the alpha of the output image')
 
-	width = 0
-	height = 0
+	args = parser.parse_args()
 
-	deviceName = ""
-	deviceOrientation = ""
+	inputFile = args.inputFile
+	outputFile = args.outputFile
 
-	text = ""
-	textColor = "000000"
-	fontSize = 100
-	fontFile = "Arial.ttf"
+	width = args.width
+	height = args.height
 
-	backgroundColor = "ffffff"
-	backgroundAlpha = 100
+	deviceName = args.deviceName
+	deviceOrientation = args.deviceOrientation
 
-	try:
-		opts, args = getopt.getopt(argv, "i:o:w:h:n:d:t:c:s:f:b:a:", ["ifile=","ofile=","width=","height=","device=","deviceori=","text=","textcolor=","fontsize=","fontfile=","bgcolor=","bgalpha=0"])
-	except getopt.GetoptError:
-		showHintExit()
-	for opt, arg in opts:
-		if opt in ("-i", "--ifile"):
-			inputFile = arg
-		elif opt in ("-o", "--ofile"):
-			outputFile = arg
-		elif opt in ("-w", "--width"):
-			try:
-				width = int(arg)
-			except ValueError:
-				showHintExit()
-		elif opt in ("-h", "--height"):
-			try:
-				height = int(arg)
-			except ValueError:
-				showHintExit()
-		elif opt in ("-n", "--device"):
-			deviceName = arg
-		elif opt in ("-d", "--deviceori"):
-			deviceOrientation = arg
-		elif opt in ("-t", "--text"):
-			text = arg
-		elif opt in ("-c", "--textcolor"):
-			textColor = arg
-		elif opt in ("-s", "--fontsize"):
-			try:
-				fontSize = int(arg)
-			except ValueError:
-				showHintExit()
-		elif opt in ("-f", "--fontfile"):
-			fontFile = arg
-		elif opt in ("-b", "--bgcolor"):
-			backgroundColor = arg
-		elif opt in ("-a", "--bgalpha"):
-			try:
-				backgroundAlpha = int(arg)
-			except ValueError:
-				showHintExit()
-	if inputFile == "" or outputFile == "" or width == 0 or height == 0 or deviceName == "" or deviceOrientation == "":
-		showHintExit()
-	else:
-		textColor = "#"+textColor
-		textInfo = {
-			"text": text,
-			"textColor": textColor,
-			"fontSize": fontSize,
-			"fontFile": fontFile,
-			"paddingBorderRatio": 0.04,
-			"paddingDeviceRatio": 0.04,
-			"paddingEachLine": 20
-		}
-		backgroundAlpha = int(255*(backgroundAlpha/100))
-		generateImage(textInfo, backgroundColor, backgroundAlpha, deviceName, deviceOrientation, width, height, -0.05, 0.5, inputFile, outputFile)
-		print("Saved the output image to:", outputFile)
+	text = args.text
+	textColor = args.textColor
+	fontSize = args.fontSize
+	fontFile = args.fontFile
+
+	backgroundColor = args.bgColor
+	backgroundAlpha = args.bgAlpha
+
+
+	textColor = "#"+textColor
+	textInfo = {
+		"text": text,
+		"textColor": textColor,
+		"fontSize": fontSize,
+		"fontFile": fontFile,
+		"paddingBorderRatio": 0.04,
+		"paddingDeviceRatio": 0.04,
+		"paddingEachLine": 20
+	}
+	backgroundAlpha = int(255*(backgroundAlpha/100))
+	generateImage(textInfo, backgroundColor, backgroundAlpha, deviceName, deviceOrientation, width, height, -0.05, 0.5, inputFile, outputFile)
+	print("Saved the output image to:", outputFile)
 
 if __name__ == "__main__":
 	main(sys.argv[1:])
