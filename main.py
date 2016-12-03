@@ -16,6 +16,8 @@ def main(argv):
 	parser.add_argument('-f', '--fontFile', default='Arial.ttf', help='font of the text displayed on the output image')
 	parser.add_argument('-b', '--bgColor', default='ffffff', help='the background color of the output image')
 	parser.add_argument('-a', '--bgAlpha', type=int, default=100, help='the alpha of the output image')
+	parser.add_argument('-ff', '--fadeFrom', type=float, default=0, help='the position of fading (0 for no fading, >0 for from bottom, <0 for from top) (range -1 to 1)')
+	parser.add_argument('-fh', '--fadeHeight', type=float, default=0.5, help='the height of fading (try yourself to see what it means)')
 
 	args = parser.parse_args()
 
@@ -36,6 +38,9 @@ def main(argv):
 	backgroundColor = args.bgColor
 	backgroundAlpha = args.bgAlpha
 
+	outputFadeFrom = args.fadeFrom
+	outputFadeHeight = args.fadeHeight
+
 
 	textColor = "#"+textColor
 	textInfo = {
@@ -48,7 +53,7 @@ def main(argv):
 		"paddingEachLine": 20
 	}
 	backgroundAlpha = int(255*(backgroundAlpha/100))
-	generateImage(textInfo, backgroundColor, backgroundAlpha, deviceName, deviceOrientation, width, height, -0.05, 0.5, inputFile, outputFile)
+	generateImage(textInfo, backgroundColor, backgroundAlpha, deviceName, deviceOrientation, width, height, outputFadeFrom, outputFadeHeight, inputFile, outputFile)
 	print("Saved the output image to:", outputFile)
 
 if __name__ == "__main__":
