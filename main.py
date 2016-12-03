@@ -7,6 +7,7 @@ def showHintExit():
 	'optional input:\n'\
 	'text color: -c "#ffffff"\n'\
 	'font size: -s 100\n'\
+	'font file: -f "Arial.ttf"\n'\
 	'background color: -b "#000000"'
 	print(hint)
 	sys.exit(2)
@@ -18,10 +19,11 @@ def main(argv):
 	text = ""
 	textColor = "black"
 	fontSize = 100
+	fontFile = "Arial.ttf"
 	backgroundColor = "white"
 
 	try:
-		opts, args = getopt.getopt(argv,"hi:o:t:c:s:b:",["ifile=","ofile=","text=","textcolor=","fontsize=","bgcolor="])
+		opts, args = getopt.getopt(argv,"hi:o:t:c:s:f:b:",["ifile=","ofile=","text=","textcolor=","fontsize=","fontfile=","bgcolor="])
 	except getopt.GetoptError:
 		showHintExit()
 	for opt, arg in opts:
@@ -35,13 +37,15 @@ def main(argv):
 			text = arg
 		elif opt in ("-c", "--textcolor"):
 			textColor = arg
-		elif opt in ("-b", "--bgcolor"):
-			backgroundColor = arg
 		elif opt in ("-s", "--fontsize"):
 			try:
 				fontSize = int(arg)
 			except ValueError:
 				showHintExit()
+		elif opt in ("-f", "--fontfile"):
+			fontFile = arg
+		elif opt in ("-b", "--bgcolor"):
+			backgroundColor = arg
 	if inputFile == "" or outputFile == "" or text == "":
 		showHintExit()
 	else:
@@ -49,7 +53,7 @@ def main(argv):
 			"text": text,
 			"textColor": textColor,
 			"fontSize": fontSize,
-			"fontFile": "Georgia Italic.ttf",
+			"fontFile": fontFile,
 			"paddingBorderRatio": 0.04,
 			"paddingDeviceRatio": 0.04,
 			"paddingEachLine": 20

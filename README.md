@@ -10,5 +10,7 @@ main.py -i <inputFile> -o <outputFile> -t "<text>"
 
 optional input:
 text color: -c "#ffffff"
+font size: -s 100
+font file: -f "Arial.ttf"
 background color: -b "#000000"
 ```
