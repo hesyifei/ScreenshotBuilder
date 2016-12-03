@@ -3,7 +3,7 @@ from PIL import Image, ImageFont, ImageDraw
 from io import BytesIO
 
 
-def generateImage(inputText, inputBgColor, inputImageDir):
+def generateImage(textInfo, inputBgColor, inputImageDir, outputImageDir):
 	width, height = (1080, 1920)
 	backgroundColor = inputBgColor
 	deviceName = "nexus_6p"
@@ -11,17 +11,6 @@ def generateImage(inputText, inputBgColor, inputImageDir):
 	screenWidth, screenHeight = (1440, 2560)
 	screenPaddingLeft, screenPaddingTop = (195, 329)
 	screenshot = inputImageDir
-	textInfo = {
-		"text": inputText,
-		"textColor": "white",
-		"fontSize": 100,
-		"fontFile": "Georgia Italic.ttf",
-		"paddingBorderRatio": 0.04,
-		"paddingDeviceRatio": 0.04,
-		"paddingEachLine": 20
-	}
-
-
 
 
 	bg = Image.new("RGB", (width, height), backgroundColor)
@@ -82,12 +71,6 @@ def generateImage(inputText, inputBgColor, inputImageDir):
 	#print(deviceShadow.format, deviceShadow.size, deviceShadow.mode)
 
 
-	#bg.show()
+	bg.save(outputImageDir)
+	bg.show()
 
-	# http://stackoverflow.com/q/16065694/2603230
-	outputBuffer = BytesIO()
-	bg.save(outputBuffer, format='JPEG')
-	bgBase64Data = outputBuffer.getvalue()
-
-	# http://stackoverflow.com/q/16748083/2603230
-	return 'data:image/jpeg;base64,' + base64.b64encode(bgBase64Data).decode()
