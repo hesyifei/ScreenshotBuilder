@@ -1,11 +1,10 @@
-import base64
+import struct
 from PIL import Image, ImageFont, ImageDraw
 from io import BytesIO
 from configparser import ConfigParser
 
 def generateImage(textInfo, inputBgColor, deviceName, deviceOrientation, outputWidth, outputHeight, inputImageDir, outputImageDir):
 	width, height = (outputWidth, outputHeight)
-	backgroundColor = inputBgColor
 	screenshot = inputImageDir
 
 	config = ConfigParser()
@@ -17,7 +16,8 @@ def generateImage(textInfo, inputBgColor, deviceName, deviceOrientation, outputW
 	screenPaddingTop = config.getint(deviceOrientation, 'screenPaddingTop')
 
 
-	bg = Image.new("RGB", (width, height), backgroundColor)
+	r,g,b = list(bytes.fromhex(inputBgColor))
+	bg = Image.new("RGBA", (width, height), (r,g,b,0))
 
 	if textInfo['text'] != "":
 		lines = textInfo['text'].split("\n")

@@ -6,10 +6,10 @@ def showHintExit():
 	hint = 'usage: main.py -i <inputFile> -o <outputFile> -n "<device_name>" -d "<port/land>"\n\n' \
 	'optional input:\n'\
 	'text: -t "<text>"\n'\
-	'text color: -c "#ffffff"\n'\
+	'text color: -c "ffffff"\n'\
 	'font size: -s 100\n'\
 	'font file: -f "Arial.ttf"\n'\
-	'background color: -b "#000000"'
+	'background color: -b "000000"'
 	print(hint)
 	sys.exit(2)
 
@@ -21,10 +21,10 @@ def main(argv):
 	deviceOrientation = ""
 
 	text = ""
-	textColor = "black"
+	textColor = "000000"
 	fontSize = 100
 	fontFile = "Arial.ttf"
-	backgroundColor = "white"
+	backgroundColor = "ffffff"
 
 	try:
 		opts, args = getopt.getopt(argv, "i:o:n:d:t:c:s:f:b:", ["ifile=","ofile=","device=","deviceori=","text=","textcolor=","fontsize=","fontfile=","bgcolor="])
@@ -55,6 +55,7 @@ def main(argv):
 	if inputFile == "" or outputFile == "" or deviceName == "" or deviceOrientation == "":
 		showHintExit()
 	else:
+		textColor = "#"+textColor
 		textInfo = {
 			"text": text,
 			"textColor": textColor,
