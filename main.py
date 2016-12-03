@@ -1,45 +1,54 @@
 #!/usr/bin/python
-
 import sys, getopt
 from genImage import generateImage
+
+def showHintExit():
+	hint = 'usage: main.py -i <inputFile> -o <outputFile> -t "<text>"\n\n' \
+	'optional input:\n'\
+	'text color: -c "#ffffff"\n'\
+	'font size: -s 100\n'\
+	'background color: -b "#000000"'
+	print(hint)
+	sys.exit(2)
 
 def main(argv):
 	inputFile = ""
 	outputFile = ""
-	inputText = ""
-	inputTextColor = "black"
+
+	text = ""
+	textColor = "black"
+	fontSize = 100
 	backgroundColor = "white"
-	hint = 'usage: main.py -i <inputFile> -o <outputFile> -t "<text>"\n\n' \
-	'optional input:\n'\
-	'text color: -c "#ffffff"\n'\
-	'background color: -b "#000000"'\
 
 	try:
-		opts, args = getopt.getopt(argv,"hi:o:t:c:b:",["ifile=","ofile=","text=","textcolor=","bgcolor="])
+		opts, args = getopt.getopt(argv,"hi:o:t:c:s:b:",["ifile=","ofile=","text=","textcolor=","fontsize=","bgcolor="])
 	except getopt.GetoptError:
-		print(hint)
-		sys.exit(2)
+		showHintExit()
 	for opt, arg in opts:
 		if opt == '-h':
-			print(hint)
-			sys.exit()
+			showHintExit()
 		elif opt in ("-i", "--ifile"):
 			inputFile = arg
 		elif opt in ("-o", "--ofile"):
 			outputFile = arg
 		elif opt in ("-t", "--text"):
-			inputText = arg
+			text = arg
 		elif opt in ("-c", "--textcolor"):
-			inputTextColor = arg
+			textColor = arg
 		elif opt in ("-b", "--bgcolor"):
 			backgroundColor = arg
-	if inputFile == "" or outputFile == "" or inputText == "":
-		print(hint)
+		elif opt in ("-s", "--fontsize"):
+			try:
+				fontSize = int(arg)
+			except ValueError:
+				showHintExit()
+	if inputFile == "" or outputFile == "" or text == "":
+		showHintExit()
 	else:
 		textInfo = {
-			"text": inputText,
-			"textColor": inputTextColor,
-			"fontSize": 100,
+			"text": text,
+			"textColor": textColor,
+			"fontSize": fontSize,
 			"fontFile": "Georgia Italic.ttf",
 			"paddingBorderRatio": 0.04,
 			"paddingDeviceRatio": 0.04,
