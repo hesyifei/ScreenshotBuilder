@@ -58,7 +58,7 @@ def main(argv):
 			"paddingDeviceRatio": 0.04,
 			"paddingEachLine": 20
 		}
-		generateImage(textInfo, backgroundColor, inputFile, outputFile)
+		generateImage(textInfo, backgroundColor, "iphone_6_plus", "port", 1080, 1920, inputFile, outputFile)
 		print("Saved the output image to:", outputFile)
 
 if __name__ == "__main__":

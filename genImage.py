@@ -1,16 +1,20 @@
 import base64
 from PIL import Image, ImageFont, ImageDraw
 from io import BytesIO
+from configparser import ConfigParser
 
-
-def generateImage(textInfo, inputBgColor, inputImageDir, outputImageDir):
-	width, height = (1080, 1920)
+def generateImage(textInfo, inputBgColor, deviceName, deviceOrientation, outputWidth, outputHeight, inputImageDir, outputImageDir):
+	width, height = (outputWidth, outputHeight)
 	backgroundColor = inputBgColor
-	deviceName = "nexus_6p"
-	deviceOrientation = "port"
-	screenWidth, screenHeight = (1440, 2560)
-	screenPaddingLeft, screenPaddingTop = (195, 329)
 	screenshot = inputImageDir
+
+	config = ConfigParser()
+	config.read("device_image/"+deviceName+"/data.ini")
+
+	screenWidth = config.getint(deviceOrientation, 'screenWidth')
+	screenHeight = config.getint(deviceOrientation, 'screenHeight')
+	screenPaddingLeft = config.getint(deviceOrientation, 'screenPaddingLeft')
+	screenPaddingTop = config.getint(deviceOrientation, 'screenPaddingTop')
 
 
 	bg = Image.new("RGB", (width, height), backgroundColor)
