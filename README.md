@@ -6,7 +6,7 @@ Still developing...
 Main file: `main.py`
 
 ```
-main.py -i <inputFile> -o <outputFile> -t "<text>"
+main.py -i <inputFile> -o <outputFile> -n "<device_name>" -d "<port/land>" -t "<text>"
 
 optional input:
 text color: -c "#ffffff"

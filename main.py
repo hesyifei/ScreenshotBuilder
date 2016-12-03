@@ -3,7 +3,7 @@ import sys, getopt
 from genImage import generateImage
 
 def showHintExit():
-	hint = 'usage: main.py -i <inputFile> -o <outputFile> -t "<text>"\n\n' \
+	hint = 'usage: main.py -i <inputFile> -o <outputFile> -n "<device_name>" -d "<port/land>" -t "<text>"\n\n' \
 	'optional input:\n'\
 	'text color: -c "#ffffff"\n'\
 	'font size: -s 100\n'\
@@ -16,6 +16,9 @@ def main(argv):
 	inputFile = ""
 	outputFile = ""
 
+	deviceName = ""
+	deviceOrientation = ""
+
 	text = ""
 	textColor = "black"
 	fontSize = 100
@@ -23,16 +26,18 @@ def main(argv):
 	backgroundColor = "white"
 
 	try:
-		opts, args = getopt.getopt(argv,"hi:o:t:c:s:f:b:",["ifile=","ofile=","text=","textcolor=","fontsize=","fontfile=","bgcolor="])
+		opts, args = getopt.getopt(argv, "i:o:n:d:t:c:s:f:b:", ["ifile=","ofile=","device=","deviceori=","text=","textcolor=","fontsize=","fontfile=","bgcolor="])
 	except getopt.GetoptError:
 		showHintExit()
 	for opt, arg in opts:
-		if opt == '-h':
-			showHintExit()
-		elif opt in ("-i", "--ifile"):
+		if opt in ("-i", "--ifile"):
 			inputFile = arg
 		elif opt in ("-o", "--ofile"):
 			outputFile = arg
+		elif opt in ("-n", "--device"):
+			deviceName = arg
+		elif opt in ("-d", "--deviceori"):
+			deviceOrientation = arg
 		elif opt in ("-t", "--text"):
 			text = arg
 		elif opt in ("-c", "--textcolor"):
@@ -46,7 +51,7 @@ def main(argv):
 			fontFile = arg
 		elif opt in ("-b", "--bgcolor"):
 			backgroundColor = arg
-	if inputFile == "" or outputFile == "" or text == "":
+	if inputFile == "" or outputFile == "" or deviceName == "" or deviceOrientation == "" or text == "":
 		showHintExit()
 	else:
 		textInfo = {
@@ -58,7 +63,7 @@ def main(argv):
 			"paddingDeviceRatio": 0.04,
 			"paddingEachLine": 20
 		}
-		generateImage(textInfo, backgroundColor, "iphone_6_plus", "port", 1080, 1920, inputFile, outputFile)
+		generateImage(textInfo, backgroundColor, deviceName, deviceOrientation, 1080, 1920, inputFile, outputFile)
 		print("Saved the output image to:", outputFile)
 
 if __name__ == "__main__":
