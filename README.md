@@ -14,4 +14,5 @@ text color: -c "ffffff"
 font size: -s 100
 font file: -f "Arial.ttf"
 background color: -b "000000"
+background alpha: -a 50
 ```

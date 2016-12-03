@@ -9,7 +9,8 @@ def showHintExit():
 	'text color: -c "ffffff"\n'\
 	'font size: -s 100\n'\
 	'font file: -f "Arial.ttf"\n'\
-	'background color: -b "000000"'
+	'background color: -b "000000"\n'\
+	'background alpha: -a 50'
 	print(hint)
 	sys.exit(2)
 
