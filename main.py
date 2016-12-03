@@ -3,7 +3,7 @@ import sys, getopt
 from genImage import generateImage
 
 def showHintExit():
-	hint = 'usage: main.py -i <inputFile> -o <outputFile> -n "<device_name>" -d "<port/land>"\n\n' \
+	hint = 'usage: main.py -i <inputFile> -o <outputFile> -w <width> -h <height> -n "<device_name>" -d "<port/land>"\n\n' \
 	'optional input:\n'\
 	'text: -t "<text>"\n'\
 	'text color: -c "ffffff"\n'\
@@ -18,6 +18,9 @@ def main(argv):
 	inputFile = ""
 	outputFile = ""
 
+	width = 0
+	height = 0
+
 	deviceName = ""
 	deviceOrientation = ""
 
@@ -30,7 +33,7 @@ def main(argv):
 	backgroundAlpha = 100
 
 	try:
-		opts, args = getopt.getopt(argv, "i:o:n:d:t:c:s:f:b:a:", ["ifile=","ofile=","device=","deviceori=","text=","textcolor=","fontsize=","fontfile=","bgcolor=","bgalpha=0"])
+		opts, args = getopt.getopt(argv, "i:o:w:h:n:d:t:c:s:f:b:a:", ["ifile=","ofile=","width=","height=","device=","deviceori=","text=","textcolor=","fontsize=","fontfile=","bgcolor=","bgalpha=0"])
 	except getopt.GetoptError:
 		showHintExit()
 	for opt, arg in opts:
@@ -38,6 +41,16 @@ def main(argv):
 			inputFile = arg
 		elif opt in ("-o", "--ofile"):
 			outputFile = arg
+		elif opt in ("-w", "--width"):
+			try:
+				width = int(arg)
+			except ValueError:
+				showHintExit()
+		elif opt in ("-h", "--height"):
+			try:
+				height = int(arg)
+			except ValueError:
+				showHintExit()
 		elif opt in ("-n", "--device"):
 			deviceName = arg
 		elif opt in ("-d", "--deviceori"):
@@ -60,7 +73,7 @@ def main(argv):
 				backgroundAlpha = int(arg)
 			except ValueError:
 				showHintExit()
-	if inputFile == "" or outputFile == "" or deviceName == "" or deviceOrientation == "":
+	if inputFile == "" or outputFile == "" or width == 0 or height == 0 or deviceName == "" or deviceOrientation == "":
 		showHintExit()
 	else:
 		textColor = "#"+textColor
@@ -74,7 +87,7 @@ def main(argv):
 			"paddingEachLine": 20
 		}
 		backgroundAlpha = int(255*(backgroundAlpha/100))
-		generateImage(textInfo, backgroundColor, backgroundAlpha, deviceName, deviceOrientation, 1080, 1920, inputFile, outputFile)
+		generateImage(textInfo, backgroundColor, backgroundAlpha, deviceName, deviceOrientation, width, height, inputFile, outputFile)
 		print("Saved the output image to:", outputFile)
 
 if __name__ == "__main__":

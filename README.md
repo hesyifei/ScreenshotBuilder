@@ -6,7 +6,7 @@ Still developing...
 Main file: `main.py`
 
 ```
-main.py -i <inputFile> -o <outputFile> -n "<device_name>" -d "<port/land>"
+main.py -i <inputFile> -o <outputFile> -w <width> -h <height> -n "<device_name>" -d "<port/land>"
 
 optional input:
 text: -t "<text>"
