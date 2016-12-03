@@ -19,19 +19,21 @@ def generateImage(textInfo, inputBgColor, deviceName, deviceOrientation, outputW
 
 	bg = Image.new("RGB", (width, height), backgroundColor)
 
+	if textInfo['text'] != "":
+		lines = textInfo['text'].split("\n")
 
-	lines = textInfo['text'].split("\n")
-
-	draw = ImageDraw.Draw(bg)
-	font = ImageFont.truetype(textInfo['fontFile'], textInfo['fontSize'])
-	totalTextHeight = height*textInfo['paddingBorderRatio']
-	paddingEachLine = textInfo['paddingEachLine']
-	for line in lines:
-		textWidth, textHeight = draw.textsize(line, font=font)
-		draw.text(((width - textWidth) / 2, totalTextHeight), line, fill=textInfo['textColor'], font=font)
-		totalTextHeight += textHeight + paddingEachLine
-	# remove last extra padding & padding to border in order to get exact text height
-	totalTextHeight = totalTextHeight - height*textInfo['paddingBorderRatio'] - paddingEachLine
+		draw = ImageDraw.Draw(bg)
+		font = ImageFont.truetype(textInfo['fontFile'], textInfo['fontSize'])
+		totalTextHeight = height*textInfo['paddingBorderRatio']
+		paddingEachLine = textInfo['paddingEachLine']
+		for line in lines:
+			textWidth, textHeight = draw.textsize(line, font=font)
+			draw.text(((width - textWidth) / 2, totalTextHeight), line, fill=textInfo['textColor'], font=font)
+			totalTextHeight += textHeight + paddingEachLine
+		# remove last extra padding & padding to border in order to get exact text height
+		totalTextHeight = totalTextHeight - height*textInfo['paddingBorderRatio'] - paddingEachLine
+	else:
+		totalTextHeight = 0
 
 
 

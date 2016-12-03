@@ -3,8 +3,9 @@ import sys, getopt
 from genImage import generateImage
 
 def showHintExit():
-	hint = 'usage: main.py -i <inputFile> -o <outputFile> -n "<device_name>" -d "<port/land>" -t "<text>"\n\n' \
+	hint = 'usage: main.py -i <inputFile> -o <outputFile> -n "<device_name>" -d "<port/land>"\n\n' \
 	'optional input:\n'\
+	'text: -t "<text>"\n'\
 	'text color: -c "#ffffff"\n'\
 	'font size: -s 100\n'\
 	'font file: -f "Arial.ttf"\n'\
@@ -51,7 +52,7 @@ def main(argv):
 			fontFile = arg
 		elif opt in ("-b", "--bgcolor"):
 			backgroundColor = arg
-	if inputFile == "" or outputFile == "" or deviceName == "" or deviceOrientation == "" or text == "":
+	if inputFile == "" or outputFile == "" or deviceName == "" or deviceOrientation == "":
 		showHintExit()
 	else:
 		textInfo = {

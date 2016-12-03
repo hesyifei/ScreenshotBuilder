@@ -6,9 +6,10 @@ Still developing...
 Main file: `main.py`
 
 ```
-main.py -i <inputFile> -o <outputFile> -n "<device_name>" -d "<port/land>" -t "<text>"
+main.py -i <inputFile> -o <outputFile> -n "<device_name>" -d "<port/land>"
 
 optional input:
+text: -t "<text>"
 text color: -c "#ffffff"
 font size: -s 100
 font file: -f "Arial.ttf"
