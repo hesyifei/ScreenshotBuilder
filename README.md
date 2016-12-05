@@ -13,7 +13,9 @@ Example usage:
 
 ##Demo
 
-Input: ![input image]
+Input:
+
+<img src="https://github.com/eflyjason/ScreenshotBuilder/raw/master/demo/input.png" width="200px">
 
 Command:
 
@@ -21,7 +23,9 @@ Command:
 ./main.py ./demo/input.png ./demo/output.png 1020 1920 "nexus_6p" -t "Hello world" -f "Avenir Next Condensed.ttc"
 ```
 
-Output: ![output image]
+Output:
+
+<img src="https://github.com/eflyjason/ScreenshotBuilder/raw/master/demo/output.png" width="200px">
 
 ##Detail usage 
 
@@ -56,7 +60,3 @@ optional arguments:
   -a BGALPHA, --bgAlpha BGALPHA
                         the alpha of the output image
 ```
-
-[input image]: https://github.com/eflyjason/ScreenshotBuilder/raw/master/demo/input.png "Input Image"
-
-[output image]: https://github.com/eflyjason/ScreenshotBuilder/raw/master/demo/output.png "Output Image"
