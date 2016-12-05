@@ -57,6 +57,6 @@ optional arguments:
                         the alpha of the output image
 ```
 
-[input image]: https://github.com/adam-p/markdown-here/raw/master/demo/input.png "Input Image"
+[input image]: https://github.com/eflyjason/ScreenshotBuilder/raw/master/demo/input.png "Input Image"
 
-[output image]: https://github.com/adam-p/markdown-here/raw/master/demo/output.png "Output Image"
+[output image]: https://github.com/eflyjason/ScreenshotBuilder/raw/master/demo/output.png "Output Image"
