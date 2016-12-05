@@ -11,9 +11,21 @@ Example usage:
 ./main.py ~/Downloads/input.png ~/Downloads/output.png 1020 1920 "example_device" -do "land" -t "Hello world!" -c "00FF00" -s 75 -f "Times New Roman.ttf" -b "FF0000" -a 50
 ```
 
----
+##Demo
 
-Detail usage: (`./main.py -h`)
+Input: ![input image]
+
+Command:
+
+```
+./main.py ./demo/input.png ./demo/output.png 1020 1920 "nexus_6p" -t "Hello world" -f "Avenir Next Condensed.ttc"
+```
+
+Output: ![output image]
+
+##Detail usage 
+
+`./main.py -h`
 
 
 ```
@@ -44,3 +56,7 @@ optional arguments:
   -a BGALPHA, --bgAlpha BGALPHA
                         the alpha of the output image
 ```
+
+[input image]: https://github.com/adam-p/markdown-here/raw/master/demo/input.png "Input Image"
+
+[output image]: https://github.com/adam-p/markdown-here/raw/master/demo/output.png "Output Image"
