@@ -95,9 +95,8 @@ def generateImage(textInfo, inputBgColor, inputBgAlpha, deviceName, deviceOrient
 				pixels[x, y] = pixels[x, y][:3] + (0,)
 		if outputFadeFrom < 0:
 			bg = bg.rotate(180, expand=True)
-		bg.save(outputImageDir)
-	else:
-		bg.save(outputImageDir)
+
+	bg.save(outputImageDir)
 
 	# commented as show() cannot show alpha correctly
 	#bg.show()
