@@ -77,22 +77,24 @@ def generateImage(textInfo, inputBgColor, inputBgAlpha, deviceName, deviceOrient
 	#print(deviceShadow.format, deviceShadow.size, deviceShadow.mode)
 
 
-	if outputFadeFrom < 0:
-		bg = bg.rotate(180, expand=True)
-
 	if outputFadeFrom != 0:
 		# http://stackoverflow.com/a/19236775/2603230
-		arr = numpy.array(bg)
+		# have to save it first then re-open it to make the following code work
+		bg.save(outputImageDir)
+		newBg = Image.open(outputImageDir).convert('RGBA')
+		if outputFadeFrom < 0:
+			newBg = newBg.rotate(180, expand=True)
+		arr = numpy.array(newBg)
 		alpha = arr[:, :, 3]
 		n = len(alpha)
 		#0.55 & 0.95
 		alpha[:] = numpy.interp(numpy.arange(n), [0, outputFadeHeight*n, (1-abs(outputFadeFrom))*n, n], [255, 255, 0, 0])[:,numpy.newaxis]
-		bg = Image.fromarray(arr, mode='RGBA')
-
-	if outputFadeFrom < 0:
-		bg = bg.rotate(180, expand=True)
-
-	bg.save(outputImageDir)
+		newBg = Image.fromarray(arr, mode='RGBA')
+		if outputFadeFrom < 0:
+			newBg = newBg.rotate(180, expand=True)
+		newBg.save(outputImageDir)
+	else:
+		bg.save(outputImageDir)
 
 	# commented as show() cannot show alpha correctly
 	#bg.show()

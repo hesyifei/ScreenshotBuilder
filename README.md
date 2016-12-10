@@ -8,7 +8,7 @@ Main file: `main.py`
 Example usage:
 
 ```
-./main.py ~/Downloads/input.png ~/Downloads/output.png 1020 1920 "example_device" -do "land" -t "Hello world!" -c "00FF00" -s 75 -f "Times New Roman.ttf" -b "FF0000" -a 50
+./main.py ~/Downloads/input.png ~/Downloads/output.png 1020 1920 "example_device" -do "land" -t "Hello world!" -c "00FF00" -s 75 -f "Times New Roman.ttf" -b "FF0000" -a 50 -ff -0.2 -fh 0.5
 ```
 
 ##Demo
@@ -59,4 +59,10 @@ optional arguments:
                         the background color of the output image
   -a BGALPHA, --bgAlpha BGALPHA
                         the alpha of the output image
+  -ff FADEFROM, --fadeFrom FADEFROM
+                        the position of fading (0 for no fading, >0 for from
+                        bottom, <0 for from top) (range -1 to 1)
+  -fh FADEHEIGHT, --fadeHeight FADEHEIGHT
+                        the height of fading (try yourself to see what it
+                        means)
 ```
