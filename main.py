@@ -16,7 +16,7 @@ def main(argv):
 	parser.add_argument('-f', '--fontFile', default='Arial.ttf', help='font of the text displayed on the output image')
 	parser.add_argument('-b', '--bgColor', default='ffffff', help='the background color of the output image')
 	parser.add_argument('-a', '--bgAlpha', type=int, default=100, help='the alpha of the output image')
-	parser.add_argument('-ff', '--fadeFrom', type=float, default=0, help='the position of fading (0 for no fading, >0 for from bottom, <0 for from top) (range -1 to 1)')
+	parser.add_argument('-ff', '--fadeFrom', type=float, default=0, help='the position (from bottom/top) for the begining of the fading (0 means no fading, >0 means fade from bottom, <0 means fade from top) (range -1 to 1)')
 	parser.add_argument('-fh', '--fadeHeight', type=float, default=0.5, help='the height of fading (try yourself to see what it means)')
 
 	args = parser.parse_args()

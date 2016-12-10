@@ -78,21 +78,24 @@ def generateImage(textInfo, inputBgColor, inputBgAlpha, deviceName, deviceOrient
 
 
 	if outputFadeFrom != 0:
-		# http://stackoverflow.com/a/19236775/2603230
-		# have to save it first then re-open it to make the following code work
+		# http://stackoverflow.com/a/19235788/2603230 & http://stackoverflow.com/a/41075431/2603230
+		if outputFadeFrom < 0:
+			bg = bg.rotate(180, expand=True)
+		width, height = bg.size
+		pixels = bg.load()
+		absOutputFadeFromFromTop = 1-abs(outputFadeFrom)
+		for y in range(int(height*absOutputFadeFromFromTop), int(height*(absOutputFadeFromFromTop+outputFadeHeight))):
+			for x in range(width):
+				alpha = pixels[x, y][3]-int((y - height*absOutputFadeFromFromTop)/height/outputFadeHeight * 255)
+				if alpha <= 0:
+					alpha = 0
+				pixels[x, y] = pixels[x, y][:3] + (alpha,)
+		for y in range(y, height):
+			for x in range(width):
+				pixels[x, y] = pixels[x, y][:3] + (0,)
+		if outputFadeFrom < 0:
+			bg = bg.rotate(180, expand=True)
 		bg.save(outputImageDir)
-		newBg = Image.open(outputImageDir).convert('RGBA')
-		if outputFadeFrom < 0:
-			newBg = newBg.rotate(180, expand=True)
-		arr = numpy.array(newBg)
-		alpha = arr[:, :, 3]
-		n = len(alpha)
-		#0.55 & 0.95
-		alpha[:] = numpy.interp(numpy.arange(n), [0, outputFadeHeight*n, (1-abs(outputFadeFrom))*n, n], [255, 255, 0, 0])[:,numpy.newaxis]
-		newBg = Image.fromarray(arr, mode='RGBA')
-		if outputFadeFrom < 0:
-			newBg = newBg.rotate(180, expand=True)
-		newBg.save(outputImageDir)
 	else:
 		bg.save(outputImageDir)
 
