@@ -38,17 +38,17 @@ usage: main.py [options]
 Generate screenshots for App Store & Google Play Store.
 
 positional arguments:
-  inputFile             input image (screenshot) path
-  outputFile            path to output the generated image
+  inputFile             path of the input image (screenshot)
+  outputFile            path for outputting the generated image
   width                 output image width
   height                output image height
-  deviceName            the device border on the output image
+  deviceName            the device frame used in the output image
 
 optional arguments:
   -h, --help            show this help message and exit
   -do {port,land}, --deviceOrientation {port,land}
-                        the device orientation on the output image
-  -t TEXT, --text TEXT  text displayed on the output image
+                        the device's orientation on the output image
+  -t TEXT, --text TEXT  text displayed on the top of the output image
   -c TEXTCOLOR, --textColor TEXTCOLOR
                         color of the text displayed on the output image
   -s FONTSIZE, --fontSize FONTSIZE
@@ -58,7 +58,8 @@ optional arguments:
   -b BGCOLOR, --bgColor BGCOLOR
                         the background color of the output image
   -a BGALPHA, --bgAlpha BGALPHA
-                        the alpha of the output image
+                        the background's alpha (from 0-100) of the output
+                        image
   -ff FADEFROM, --fadeFrom FADEFROM
                         the position (from bottom/top) for the begining of the
                         fading (0 means no fading, >0 means fade from bottom,
